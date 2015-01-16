@@ -261,7 +261,7 @@ class GtagsCommand(object):
 
         if not os.path.exists(file_name):
             msg = u'Gtags: file [%s] does not exist.' % (file_name)
-            self.gtags_command.print_message(msg, 'warn')
+            self.print_message(msg, 'warn')
             self._file_name = None
             self._target_enc = None
             return False
@@ -284,7 +284,7 @@ class GtagsCommand(object):
                 #self.gtags_get_object_definition(args[1])
                 self._target_object = args[1]
                 self._method = 'gtags_get_object_definition'
-        elif len(args) == 3:
+        elif len(args) >= 3:
             if args[1] == '-r':
                 # gtags -r <the item provided as the argument>
                 #self.gtags_get_object_reference(args[2])
@@ -303,7 +303,9 @@ class GtagsCommand(object):
             elif args[1] == '--gtags-update' or args[1] == '-u':
                 self._method = 'update_tags'
             else:
-                return False
+                self._target_object = args[1]
+                self._method = 'gtags_get_object_definition'
+                return True
         else:
             return False
 
