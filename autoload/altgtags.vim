@@ -112,7 +112,7 @@ if argline == '':
     args.append(vim.eval('expand("<cword>")'))
 else:
     arg_items = argline.split()
-    if arg_items[0] == '-f':
+    if arg_items[0] == '-f' or arg_items[0] == '-u' or arg_items[0] == '--gtags-update' or arg_items[0] == '--gtags-remake':
         args.extend(arg_items)
     else:
         args.extend(arg_items)

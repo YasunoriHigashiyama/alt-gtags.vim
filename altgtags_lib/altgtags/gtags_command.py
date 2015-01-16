@@ -284,7 +284,7 @@ class GtagsCommand(object):
                 #self.gtags_get_object_definition(args[1])
                 self._target_object = args[1]
                 self._method = 'gtags_get_object_definition'
-        elif len(args) >= 3:
+        elif len(args) == 3:
             if args[1] == '-r':
                 # gtags -r <the item provided as the argument>
                 #self.gtags_get_object_reference(args[2])
@@ -300,8 +300,6 @@ class GtagsCommand(object):
                 #self.gtags_grep(args[2])
                 self._target_object = args[2]
                 self._method = 'gtags_grep'
-            elif args[1] == '--gtags-update' or args[1] == '-u':
-                self._method = 'update_tags'
             else:
                 self._target_object = args[1]
                 self._method = 'gtags_get_object_definition'
