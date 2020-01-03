@@ -5,7 +5,7 @@ import os
 import tempfile
 import subprocess
 import chardet
-from gtags import Gtags
+from altgtags.gtags import Gtags
 
 class GtagsCommand(object):
 
@@ -255,8 +255,9 @@ class GtagsCommand(object):
             return False
 
         file_name = args[0]
-        enc = chardet.detect(file_name)['encoding']
-        file_name = file_name.decode(enc)
+        enc = 'utf-8'
+        #enc = chardet.detect(file_name)['encoding']
+        #file_name = file_name.decode(enc)
         file_name = os.path.abspath(file_name)
 
         if not os.path.exists(file_name):

@@ -5,7 +5,7 @@ function! s:LoadPythonModulePath()
     for l:i in split(globpath(&runtimepath, "altgtags_lib"), '\n')
         let s:python_module_path = fnamemodify(l:i, ":p")
     endfor
-    python << EOF
+    python3 << EOF
 import vim
 import site
 
@@ -17,7 +17,7 @@ function! altgtags#AltGtags(argline)
 
     call s:LoadPythonModulePath()
 
-python << EOF
+python3 << EOF
 import os
 import sys
 import re
@@ -55,15 +55,16 @@ def display_result(self, gtags_root, gtags_list, target_enc):
         list_str = u"%s'%s'," % (list_str, s) 
 
     list_str = u'%s]' % list_str
-    
+	#vim.command('echo "%s"' % (list_str))
+
     # Saving the original efm
     vim.command('let l:efm_org = &efm')
     vim.command('let &efm = "%s"' % (GTAGS_EFM))
     vim_enc = vim.eval('&encoding')
-    list_str = list_str.encode(vim_enc, errors='replace')
+	#list_str = list_str.encode(vim_enc, errors='replace')
     vim.command('let l:list_str = %s' % (list_str))
 
-    gtags_root = gtags_root.encode(target_enc)
+	#gtags_root = gtags_root.encode(target_enc)
     
     vim.command('cd %s' % (gtags_root))
     vim.command('botright copen')
@@ -76,8 +77,8 @@ def main(args):
     ignore_case = 'false'
 
     from types import MethodType
-    GtagsCommand.print_message = MethodType(print_message, None, GtagsCommand)
-    GtagsCommand.display_result = MethodType(display_result, None, GtagsCommand)
+    GtagsCommand.print_message = MethodType(print_message, GtagsCommand)
+    GtagsCommand.display_result = MethodType(display_result, GtagsCommand)
 
     ignore_case = True if ignore_case.lower() == 'true' else False
     gtags_command = GtagsCommand(global_path, ignore_case)

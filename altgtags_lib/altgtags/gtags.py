@@ -37,7 +37,7 @@ class Gtags(object):
         items = line.split(None, max_split)
         if not len(items) == 3:
             if DEBUG:
-                print items
+                print(items)
             #sys.stderr.write('Unexpected result when parsing an output\n')
             # if an unexpected result has occurred, fill a gtags object with dummy data
             self._name = u'N/A'
